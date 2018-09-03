@@ -1,0 +1,113 @@
+Feature: Lead Capture
+  This feature deals with the lead capture functionality of the application
+
+  Scenario: Login with the incorrect username and password
+    Given A user "Gujarat" with password "abcd"
+    When I enter the username "Gujarat"
+    And I enter the password "abcd"
+    And I click on the login button
+    Then I should see the error message
+
+  Scenario: CSR Login with the correct username and password
+    Given A user "Gujarat" with password "abcd"
+    When I enter the username "Gujarat"
+    And I enter the password "ab"
+    And I click on the login button
+    Then I should see the welcome message on first page
+
+  Scenario: Login with the non existing number
+    Given User is login to CRM
+    When I click on the farmer tab
+    And I search the "77" mobile number
+    And I click on the search button
+    Then I should see the error message on page
+
+  Scenario: Login with the existing farmer
+    Given User is login to CRM
+    When I search the "7798522172" mobile number
+    And I click on the search button
+    Then I redirected on the farmer profile page
+
+  Scenario: Search lead product and create first lead
+    Given User is login to farmer profile
+    When I click on the place order button
+    Then I redirected on the product page
+    And I search the product "John Deere 5036 C Tractor"
+    Then I able to view results for the search
+    And I click on the lead icon for creating lead
+    Then Lead form is displayed to me
+    And I enter 5 for the land holding
+    And I select "Bhiga" for land holding unit
+    And I enter crop name "Beat"
+    And I select the value form dropdown
+    And I enter another crop name "Bajara"
+    And I select the value form dropdown
+    And I select the source of irrigation "Rain"
+    And I have click on the submit button
+    Then I should see the success message for adding lead
+
+  Scenario: Search lead product and create second lead
+    Given User is login to farmer profile
+    And I search the product "John Deere 5036 C Tractor"
+    Then I able to view results for the search
+    And I click on the lead icon for creating lead
+    Then Lead form is displayed to me
+    And I enter 2 for the land holding
+    And I select "Acres" for land holding unit
+    And I enter crop name "Banana"
+    And I select the value form dropdown
+    And I enter another crop name "Beat"
+    And I select the value form dropdown
+    And I select the source of irrigation "Canal"
+    And I have click on the submit button
+    Then I should see the success message for adding lead
+
+  Scenario: Logout the farmer
+    Given User is login to farmer profile
+    When I click on the tag call/farmer logout menu
+    And Tag call popup is displayed to me
+    And I select order placed for tagging
+    And I click on the tag call and log out farmer
+    Then I should see the success message for logout farmer
+
+  Scenario: Logout the CSR
+    Given User is login to CRM
+    When I click on the user icon for logout
+    And I click on the Logout
+    Then I should redirect to the login page
+
+  Scenario: Admin Login with the correct username and password
+    Given A user "nirmal" with password "nirmal@2017"
+    When I enter the username "nirmal"
+    And I enter the password "Nirmal@2017"
+    And I click on the login button
+    Then I should see the welcome message on first page
+
+  Scenario: Accept lead for product deliver
+    Given A user "nirmal" with password "nirmal@2017"
+    When I click on the lead capture tab
+    And I select first lead for operation
+    And Lead Details form is displayed to me
+    And I click on the application button
+    And I select the application value
+    And I select the mode of payment "Loan"
+    And I select the tentative date of purchase "Within 30 days"
+    And I select type exchange
+    And I have click on the submit button of lead capture
+    Then I should able to view success message for lead submitted
+
+  Scenario: Cancel lead
+    Given A user "nirmal" with password "nirmal@2017"
+    When I click on the lead capture tab
+    And I select first lead for operation
+    And Lead Details form is displayed to me
+    And I click on lead cancel button
+    Then I should able to view success message for lead cancel
+
+  Scenario: Logout the Admin
+    Given User is login to CRM
+    When I click on the user icon for logout
+    And I click on the Logout
+    Then I should redirect to the login page
+
+
